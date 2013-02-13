@@ -3,4 +3,3 @@ class AddInstructorToCourse < ActiveRecord::Migration
     add_column :courses, :instructor, :string
   end
 end
-end
