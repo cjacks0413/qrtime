@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Course:</b>
+  <%= @course_session.course_id %>
+</p>
+
+<p>
+  <b>Date:</b>
+  <%= @course_session.date %>
+</p>
+
+<p>
+  <b>Start time:</b>
+  <%= @course_session.start_time %>
+</p>
+
+<p>
+  <b>End time:</b>
+  <%= @course_session.end_time %>
+</p>
+
+
+<p>
+  Check in QR: <br/> <%=  image_tag( course_session_check_in_url(@course_session, :format => :png)) %>
+</p>
+
+<%= link_to 'Edit', edit_course_session_path(@course_session) %> |
+<%= link_to 'Back', course_sessions_path %>

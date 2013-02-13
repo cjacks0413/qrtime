@@ -1,0 +1,29 @@
+<h1>Listing course_sessions</h1>
+
+<table>
+  <tr>
+    <th>Course</th>
+    <th>Date</th>
+    <th>Start time</th>
+    <th>End time</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @course_sessions.each do |course_session| %>
+  <tr>
+    <td><%= course_session.course_id %></td>
+    <td><%= course_session.date %></td>
+    <td><%= course_session.start_time %></td>
+    <td><%= course_session.end_time %></td>
+    <td><%= link_to 'Show', course_session %></td>
+    <td><%= link_to 'Edit', edit_course_session_path(course_session) %></td>
+    <td><%= link_to 'Destroy', course_session, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Course session', new_course_session_path %>
