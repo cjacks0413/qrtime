@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Subject:</b>
+  <%= @request.subject %>
+</p>
+
+<p>
+  <b>Content:</b>
+  <%= @request.content %>
+</p>
+
+<p>
+  <b>Read:</b>
+  <%= @request.read %>
+</p>
+
+
+<%= link_to 'Edit', edit_request_path(@request) %> |
+<%= link_to 'Back', requests_path %>

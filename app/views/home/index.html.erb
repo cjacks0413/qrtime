@@ -1,4 +1,23 @@
 <h3>Home</h3>
-<% @users.each do |user| %>
-  <p>User: <%=link_to user.name, user %></p>
+
+<% if user_signed_in? %>
+
+<%= current_user.name %>     <br><br>
+<% StudentActivity.all(:conditions => {:user_id => current_user.id}).each do |activity|  %>
+        <tr>
+          <td><%= activity.course_session.course.name %></td>
+          <td><%= activity.action %></td>
+          <td><%= activity.date %></td>
+          <td><%= activity.time %></td>
+        </tr>
+        <br>
+ <% end %>
+
+
+
+<% else %>
+      <%= link_to 'Login', new_user_session_path %>
+    <br>
+    <%= link_to 'Sign Up', new_user_registration_path %>
+
 <% end %>

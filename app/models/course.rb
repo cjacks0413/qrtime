@@ -4,4 +4,5 @@ class Course < ActiveRecord::Base
   validates_presence_of :name, :instructor
 
   has_many :course_sessions
+  has_many :users
 end

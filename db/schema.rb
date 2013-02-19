@@ -11,15 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130213185152) do
+ActiveRecord::Schema.define(:version => 20130219195615) do
 
   create_table "course_sessions", :force => true do |t|
     t.integer  "course_id"
     t.date     "date"
     t.time     "start_time"
     t.time     "end_time"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.text     "description"
+    t.string   "check_in_url"
+    t.string   "check_out_url"
   end
 
   create_table "courses", :force => true do |t|
@@ -27,6 +30,14 @@ ActiveRecord::Schema.define(:version => 20130213185152) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.string   "instructor"
+  end
+
+  create_table "requests", :force => true do |t|
+    t.string   "subject"
+    t.text     "content"
+    t.boolean  "read"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "roles", :force => true do |t|
@@ -39,6 +50,16 @@ ActiveRecord::Schema.define(:version => 20130213185152) do
 
   add_index "roles", ["name", "resource_type", "resource_id"], :name => "index_roles_on_name_and_resource_type_and_resource_id"
   add_index "roles", ["name"], :name => "index_roles_on_name"
+
+  create_table "student_activities", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "course_session_id"
+    t.string   "action"
+    t.date     "date"
+    t.time     "time"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -54,6 +75,7 @@ ActiveRecord::Schema.define(:version => 20130213185152) do
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
     t.string   "name"
+    t.integer  "course_id"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

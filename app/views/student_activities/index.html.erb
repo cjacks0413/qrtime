@@ -1,0 +1,31 @@
+<h1>Listing student_activities</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Course session</th>
+    <th>Action</th>
+    <th>Date</th>
+    <th>Time</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @student_activities.each do |student_activity| %>
+  <tr>
+    <td><%= student_activity.user_id %></td>
+    <td><%= student_activity.course_session_id %></td>
+    <td><%= student_activity.action %></td>
+    <td><%= student_activity.date %></td>
+    <td><%= student_activity.time %></td>
+    <td><%= link_to 'Show', student_activity %></td>
+    <td><%= link_to 'Edit', edit_student_activity_path(student_activity) %></td>
+    <td><%= link_to 'Destroy', student_activity, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Student activity', new_student_activity_path %>

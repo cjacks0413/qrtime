@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <%= @student_activity.user.name %>
+</p>
+
+<p>
+  <b>Course session:</b>
+  <%= @student_activity.course_session_id %>
+</p>
+
+<p>
+  <b>Action:</b>
+  <%= @student_activity.action %>
+</p>
+
+<p>
+  <b>Date:</b>
+  <%= @student_activity.date %>
+</p>
+
+<p>
+  <b>Time:</b>
+  <%= @student_activity.time %>
+</p>
+
+
+<%= link_to 'Edit', edit_student_activity_path(@student_activity) %> |
+<%= link_to 'Back', student_activities_path %>

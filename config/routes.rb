@@ -1,4 +1,15 @@
 Qrtime::Application.routes.draw do
+
+
+
+  resources :student_activities
+
+
+  resources :requests do
+    get 'read'
+  end
+
+
   resources :course_sessions do
     get 'check_in'
   end

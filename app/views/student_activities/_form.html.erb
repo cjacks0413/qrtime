@@ -1,0 +1,15 @@
+<%= simple_form_for(@student_activity) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.association :user %>
+    <%= f.association :course_session %>
+    <%= f.input :action %>
+    <%= f.input :date %>
+    <%= f.input :time %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
