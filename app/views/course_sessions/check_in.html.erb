@@ -1,7 +1,8 @@
 Ah, so you want to check in to <%= @course_session.course.name %>? Well good for you!
 
 <div class="form-actions">
-  <%= button_to
 
-      StudentActivity.create(:user_id => current_user.id, :action => "Check-In", :course_session_id => @course_session.id, :date => Date.today, :time => Time.now) %>
+
+
+  <%= button_to "Check In", student_activities_path %>
 </div>
