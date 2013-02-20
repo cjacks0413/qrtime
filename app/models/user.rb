@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   rolify
+  resourcify
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
@@ -12,4 +13,5 @@ class User < ActiveRecord::Base
 
   has_many :student_activities
   belongs_to :course
+  belongs_to :role
 end
