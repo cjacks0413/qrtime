@@ -1,4 +1,5 @@
 class StudentActivitiesController < ApplicationController
+  before_filter :authenticate_user!
   # GET /student_activities
   # GET /student_activities.json
   def index
@@ -39,8 +40,31 @@ class StudentActivitiesController < ApplicationController
 
   # POST /student_activities
   # POST /student_activities.json
-  def create
+  def check_in
     @student_activity = StudentActivity.new(params[:student_activity])
+    @student_activity.user_id = current_user.id
+    @student_activity.action = "Check-In"
+    @student_activity.date = Date.today
+    @student_activity.time = Time.now
+
+    respond_to do |format|
+      if @student_activity.save
+        format.html { redirect_to @student_activity, notice: 'Student activity was successfully created.' }
+        format.json { render json: @student_activity, status: :created, location: @student_activity }
+      else
+        format.html { render action: "new" }
+        format.json { render json: @student_activity.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+
+  def check_out
+    @student_activity = StudentActivity.new(params[:student_activity])
+    @student_activity.user_id = current_user.id
+    @student_activity.action = "Check-Out"
+    @student_activity.date = Date.today
+    @student_activity.time = Time.now
 
     respond_to do |format|
       if @student_activity.save

@@ -1,13 +1,6 @@
 Ah, so you want to check in to <%= @course_session.course.name %>? Well good for you!
 
-<div class="form-actions">
-
-  <% @student_activity = StudentActivity.new %>
-  <% @student_activity.user_id = current_user.id %>
-  <% @student_activity.course_session_id = @course_session.id %>
-  <% @student_activity.action = "Check-In" %>
-  <% @student_activity.date = Date.today %>
-  <% @student_activity.time = Time.now %>
-
-  <%= button_to 'Check In', student_activities_path(@student_activity)%>
-</div>
+<%= form_for @student_activity, :url => {:controller => :student_activities, :action => "check_in"} do |f|  %>
+    <%=  f.hidden_field :course_session_id %>
+    <%= f.submit %>
+<% end %>

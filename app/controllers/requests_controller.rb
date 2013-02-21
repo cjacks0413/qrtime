@@ -1,4 +1,5 @@
 class RequestsController < ApplicationController
+  before_filter :authenticate_user!
   def read
     @request = Request.find(params[:id])
     @request.read = true

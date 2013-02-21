@@ -2,7 +2,13 @@ Qrtime::Application.routes.draw do
 
 
 
-  resources :student_activities
+  resources :student_activities, :except => [:create, :new] do
+    collection do
+      post :check_in
+      post :check_out
+    end
+
+  end
 
 
   resources :requests do

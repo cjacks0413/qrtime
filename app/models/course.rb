@@ -1,4 +1,5 @@
 class Course < ActiveRecord::Base
+  resourcify
   attr_accessible :name, :instructor
 
   validates_presence_of :name, :instructor

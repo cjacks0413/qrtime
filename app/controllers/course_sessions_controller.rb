@@ -1,4 +1,5 @@
 class CourseSessionsController < ApplicationController
+  before_filter :authenticate_user!
   # GET /course_sessions
   # GET /course_sessions.json
   def index
@@ -83,6 +84,10 @@ class CourseSessionsController < ApplicationController
 
   def check_in
     @course_session = CourseSession.find(params[:course_session_id])
+
+    @student_activity = StudentActivity.new
+    @student_activity.course_session_id = @course_session.id
+
 
     respond_to do |format|
       format.html
