@@ -1,0 +1,6 @@
+Ah, so you want to check out of <%= @course_session.course.name %>? Well good for you!
+
+<%= form_for @student_activity, :url => {:controller => :student_activities, :action => "check_out"} do |f|  %>
+    <%=  f.hidden_field :course_session_id %>
+    <%= f.submit %>
+<% end %>

@@ -13,4 +13,11 @@ class User < ActiveRecord::Base
   has_many :student_activities
   belongs_to :course
   belongs_to :role
+
+  after_create :default_role
+
+  private
+  def default_role
+    self.add_role :student
+  end
 end

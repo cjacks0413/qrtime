@@ -96,7 +96,16 @@ class CourseSessionsController < ApplicationController
   end
 
   def check_out
+    @course_session = CourseSession.find(params[:course_session_id])
 
+    @student_activity = StudentActivity.new
+    @student_activity.course_session_id = @course_session.id
+
+
+    respond_to do |format|
+      format.html
+      format.png  { render :qrcode => course_session_check_out_url(@course_session) }
+    end
   end
 
 end

@@ -40,5 +40,9 @@
   Check in QR: <br/> <%=  image_tag( course_session_check_in_url(@course_session, :format => :png)) %>
 </p>
 
+<p>
+  Check Out QR: <br/> <%=  image_tag( course_session_check_out_url(@course_session, :format => :png)) %>
+</p>
+
 <%= link_to 'Edit', edit_course_session_path(@course_session) %> |
 <%= link_to 'Back', course_sessions_path %>
