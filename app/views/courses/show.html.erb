@@ -11,5 +11,10 @@
 </p>
 
 
+<p>
+  <b>Students:</b>
+  <%= User.with_role(:student).where(:course_id => @course.id) %>
+</p>
+
 <%= link_to 'Edit', edit_course_path(@course) %> |
 <%= link_to 'Back', courses_path %>

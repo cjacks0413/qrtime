@@ -47,6 +47,8 @@ class StudentActivitiesController < ApplicationController
     @student_activity.date = Date.today
     @student_activity.time = Time.now
 
+    @course_session = CourseSession.find(@student_activity.course_session_id)
+
     respond_to do |format|
       if @student_activity.save
         format.html { redirect_to @student_activity, notice: 'Student activity was successfully created.' }
