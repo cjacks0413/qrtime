@@ -51,8 +51,14 @@ class StudentActivitiesController < ApplicationController
 
     respond_to do |format|
       if @student_activity.save
-        format.html { redirect_to @student_activity, notice: 'Student activity was successfully created.' }
+        if  @course_session.check_in_url.nil? == false
+        format.html { redirect_to @course_session.check_in_url , notice: 'Student activity was successfully created.' }
+        format.json { render json: @course_session.check_in_url, status: :created, location: @student_activity }
+
+        else
+        format.html { redirect_to @student_activity , notice: 'Student activity was successfully created.' }
         format.json { render json: @student_activity, status: :created, location: @student_activity }
+        end
       else
         format.html { render action: "new" }
         format.json { render json: @student_activity.errors, status: :unprocessable_entity }
@@ -68,10 +74,18 @@ class StudentActivitiesController < ApplicationController
     @student_activity.date = Date.today
     @student_activity.time = Time.now
 
+    @course_session = CourseSession.find(@student_activity.course_session_id)
+
     respond_to do |format|
       if @student_activity.save
-        format.html { redirect_to @student_activity, notice: 'Student activity was successfully created.' }
-        format.json { render json: @student_activity, status: :created, location: @student_activity }
+        if  @course_session.check_in_url.nil? == false
+          format.html { redirect_to @course_session.check_out_url , notice: 'Student activity was successfully created.' }
+          format.json { render json: @course_session.check_out_url, status: :created, location: @student_activity }
+
+        else
+          format.html { redirect_to @student_activity , notice: 'Student activity was successfully created.' }
+          format.json { render json: @student_activity, status: :created, location: @student_activity }
+        end
       else
         format.html { render action: "new" }
         format.json { render json: @student_activity.errors, status: :unprocessable_entity }
