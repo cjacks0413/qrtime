@@ -5,5 +5,6 @@ class Course < ActiveRecord::Base
   validates_presence_of :name, :instructor
 
   has_many :course_sessions
-  has_many :users
+  has_many :courses_users
+  has_and_belongs_to_many :users
 end

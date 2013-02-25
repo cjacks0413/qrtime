@@ -5,6 +5,43 @@
     <%= current_user.name %>   <br><br>
 
     <% if current_user.has_role?(:student) == true  %>
+        <p>
+          <b>Courses:</b>
+          <% if !current_user.courses.empty? %>
+              <%= current_user.courses.collect {|c| link_to(c.name, c)}.join(", ").html_safe%>
+
+                  <%= form_tag(course_remove_user_path(@user)) do %>
+                    <table>
+                      <tr>
+                        <th>Course</th>
+                        <th>Remove?</th>
+                      </tr>
+                      <% for course in @courses do %>
+                          <tr>
+                            <td><%= course.name %></td>
+                            <td><%= check_box_tag "courses[]", course.id %></td>
+                          </tr>
+                      <% end %>
+                    </table>
+                    <br />
+                    <%= submit_tag 'Remove checked courses' %>
+                <% end %>
+          <% else %>
+              Not enrolled on any courses yet.
+          <% end %>
+        </p>
+
+        <b>Enroll in new course:</b>
+        <% if current_user.courses.count < Course.count then %>
+            <%= form_tag(course_add_user_path(@user)) do %>
+                <%= select_tag(:course,
+                               options_from_collection_for_select(@user.unenrolled_courses,
+                                                                  :id, :name)) %>
+                <%= submit_tag 'Enroll' %>
+            <% end %>
+        <% else %>
+            <p><%= @user.name %> is enrolled in every course.</p>
+        <% end %>
 
         <% StudentActivity.all(:conditions => {:user_id => current_user.id}).each do |activity|  %>
             <tr>

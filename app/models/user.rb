@@ -11,13 +11,23 @@ class User < ActiveRecord::Base
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :course_id
 
   has_many :student_activities
-  belongs_to :course
+  has_many :courses_users
+  has_and_belongs_to_many :courses
   belongs_to :role
 
   after_create :default_role
 
+  def unenrolled_courses
+    Course.all - self.courses
+  end
+
+  def enrolled_in?(course)
+    self.courses.include?(course)
+  end
+
   private
-  def default_role
+   def default_role
     self.add_role :student
   end
+
 end

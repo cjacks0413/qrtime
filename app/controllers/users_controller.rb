@@ -35,4 +35,49 @@ class UsersController < ApplicationController
     return !!self.roles.find_by_name(role.to_s.camelize)
   end
 
+
+  # GET /users/1/courses
+  def courses
+    @user = User.find(params[:id])
+    @courses = @user.courses
+  end
+
+
+  # POST /users/1/course_add?course_id=2
+  # (note no real query string, just
+  # convenient notation for parameters)
+  def course_add
+    #Convert ids from routing to objects
+    @user = User.find(params[:id])
+    @course = Course.find(params[:course])
+    if not @user.enrolled_in?(@course)
+      #add course to list using << operator
+      @user.courses << @course
+      flash[:notice] = 'Student was successfully enrolled'
+    else
+      flash[:error] = 'Student was already enrolled'
+    end
+    redirect_to root_path
+
+  end
+
+  # POST /users/1/course_remove?courses[]=
+  def course_remove
+    #Convert ids from routing to object
+    @user = User.find(params[:id])
+    #get list of courses to remove from query string
+    course_ids = params[:courses]
+    unless course_ids.blank?
+      course_ids.each do |course_id|
+        course = Course.find(course_id)
+        if @user.enrolled_in?(course)
+          logger.info "Removing student from course #{course.id}"
+          @user.courses.delete(course)
+          flash[:notice] = 'Course was successfully deleted'
+        end
+      end
+    end
+    redirect_to root_path
+  end
+
 end

@@ -7,14 +7,39 @@
 
 <p>
   <b>Instructor:</b>
-  <%= @course.instructor %>
+  <%= @course.instructor%>
 </p>
 
+<p>
+  <b>Course Sessions:</b>
+  <br>
+  <% @course.course_sessions.each do |course_session| %>
+      <tr>
+        <td><%= course_session.course.name %></td>
+        <td><%= course_session.date %></td>
+        <td><%= course_session.start_time %></td>
+        <td><%= course_session.end_time %></td>
+        <td><%= link_to 'Show', course_session %></td>
+        <td><%= link_to 'Edit', edit_course_session_path(course_session) %></td>
+        <td><%= link_to 'Destroy', course_session, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+      <br>
+  <% end %>
+</p>
+
+<%= link_to 'New Course session', new_course_session_path %>
+
+<br><br>
 
 <p>
   <b>Students:</b>
-  <%= User.with_role(:student).where(:course_id => @course.id) %>
+  <%= @course.users %>
 </p>
+
+
+
+<br>
+<br>
 
 <%= link_to 'Edit', edit_course_path(@course) %> |
 <%= link_to 'Back', courses_path %>

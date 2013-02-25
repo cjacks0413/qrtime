@@ -15,6 +15,7 @@ class CoursesController < ApplicationController
   # GET /courses/1.json
   def show
     @course = Course.find(params[:id])
+    @course_sessions = CourseSession.all
 
     respond_to do |format|
       format.html # show.html.erb
@@ -26,6 +27,7 @@ class CoursesController < ApplicationController
   # GET /courses/new.json
   def new
     @course = Course.new
+
 
     respond_to do |format|
       format.html # new.html.erb
@@ -81,4 +83,9 @@ class CoursesController < ApplicationController
       format.json { head :no_content }
     end
   end
+end
+
+# GET /courses/1/roll
+def roll
+  @course = Course.find(params[:id])
 end

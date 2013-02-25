@@ -6,10 +6,10 @@ class Ability
     if user.has_role? :admin
       can :manage, :all
 
-    elsif user.role? :instructor
+    elsif user.has_role? :instructor
     can :manage
 
-    elsif user.role? :student
+    elsif user.has_role? :student
     can :read
 
    end

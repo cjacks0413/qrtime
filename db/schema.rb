@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130219195615) do
+ActiveRecord::Schema.define(:version => 20130225202135) do
 
   create_table "course_sessions", :force => true do |t|
     t.integer  "course_id"
@@ -31,6 +31,13 @@ ActiveRecord::Schema.define(:version => 20130219195615) do
     t.datetime "updated_at", :null => false
     t.string   "instructor"
   end
+
+  create_table "courses_users", :id => false, :force => true do |t|
+    t.integer "course_id", :null => false
+    t.integer "user_id",   :null => false
+  end
+
+  add_index "courses_users", ["course_id", "user_id"], :name => "index_courses_users_on_course_id_and_user_id", :unique => true
 
   create_table "requests", :force => true do |t|
     t.string   "subject"
