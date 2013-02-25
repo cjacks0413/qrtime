@@ -35,14 +35,13 @@
   <%= @course_session.check_out_url %>
 </p>
 
-
-<p>
-  Check in QR: <br/> <%=  image_tag( course_session_check_in_url(@course_session, :format => :png)) %>
-</p>
-
-<p>
-  Check Out QR: <br/> <%=  image_tag( course_session_check_out_url(@course_session, :format => :png)) %>
-</p>
+<table cellpadding=40>
+  <tr><th>Check in QR:</th><th>Check Out QR:</th></tr>
+  <tr>
+      <td><%=  image_tag( course_session_check_in_url(@course_session, :format => :png)) %></td>
+      <td><%=  image_tag( course_session_check_out_url(@course_session, :format => :png)) %></td>
+  </tr>
+</table>
 
 <%= link_to 'Edit', edit_course_session_path(@course_session) %> |
 <%= link_to 'Back', course_sessions_path %>
