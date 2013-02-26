@@ -4,4 +4,6 @@
 
 require File.expand_path('../config/application', __FILE__)
 
+Rake::Task[:default].clear if Rake::Task.task_defined?(:default)
+
 Qrtime::Application.load_tasks
