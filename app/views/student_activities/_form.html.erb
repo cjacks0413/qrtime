@@ -3,7 +3,7 @@
 
   <div class="form-inputs">
     <%= f.association :user %>
-    <%= f.association :course_session %>
+    <%= f.association :course_session, :label_method => :id %>
     <%= f.input :action %>
     <%= f.input :date %>
     <%= f.input :time %>

@@ -3,6 +3,7 @@
 <table>
   <tr>
     <th>User</th>
+    <th>Course</th>
     <th>Course session</th>
     <th>Action</th>
     <th>Date</th>
@@ -13,8 +14,11 @@
   </tr>
 
 <% @student_activities.each do |student_activity| %>
+      <% course_id = student_activity.course_session_id %>
+      <% user_id = student_activity.user_id %>
   <tr>
-    <td><%= student_activity.user_id %></td>
+    <td><%= User.find(user_id).name  %></td>
+    <td> <%= Course.find(course_id).name %> </td>
     <td><%= student_activity.course_session_id %></td>
     <td><%= student_activity.action %></td>
     <td><%= student_activity.date %></td>
@@ -28,4 +32,4 @@
 
 <br />
 
-<%= link_to 'New Student activity', new_student_activity_path %>
+<%= link_to 'Home', root_path %>

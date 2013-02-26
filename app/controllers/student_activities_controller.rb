@@ -3,6 +3,7 @@ class StudentActivitiesController < ApplicationController
   # GET /student_activities
   # GET /student_activities.json
   def index
+    authorize! :index, @user, :message => 'Not authorized.'
     @student_activities = StudentActivity.all
 
     respond_to do |format|
@@ -25,6 +26,7 @@ class StudentActivitiesController < ApplicationController
   # GET /student_activities/new
   # GET /student_activities/new.json
   def new
+    authorize! :new, @user, :message => 'Not authorized.'
     @student_activity = StudentActivity.new
 
     respond_to do |format|
@@ -35,6 +37,7 @@ class StudentActivitiesController < ApplicationController
 
   # GET /student_activities/1/edit
   def edit
+    authorize! :edit, @user, :message => 'Not authorized.'
     @student_activity = StudentActivity.find(params[:id])
   end
 
@@ -45,15 +48,15 @@ class StudentActivitiesController < ApplicationController
     @student_activity.user_id = current_user.id
     @student_activity.action = "Check-In"
     @student_activity.date = Date.today
-    @student_activity.time = Time.now
+    @student_activity.time = Time.now.in_time_zone("Eastern Time (US & Canada)")
 
     @course_session = CourseSession.find(@student_activity.course_session_id)
 
     respond_to do |format|
       if @student_activity.save
-        if  @course_session.check_in_url.nil? == false
-        format.html { redirect_to @course_session.check_in_url , notice: 'Student activity was successfully created.' }
-        format.json { render json: @course_session.check_in_url, status: :created, location: @student_activity }
+        if  @course_session.check_in_url != ""
+          format.html { render action: "confirmation_in" }
+          format.json {render json: @student_activity.errors, status: :unprocessable_entity  }
 
         else
         format.html { redirect_to @student_activity , notice: 'Student activity was successfully created.' }
@@ -72,15 +75,15 @@ class StudentActivitiesController < ApplicationController
     @student_activity.user_id = current_user.id
     @student_activity.action = "Check-Out"
     @student_activity.date = Date.today
-    @student_activity.time = Time.now
+    @student_activity.time = Time.now.in_time_zone("Eastern Time (US & Canada)")
 
     @course_session = CourseSession.find(@student_activity.course_session_id)
 
     respond_to do |format|
       if @student_activity.save
         if  @course_session.check_in_url.nil? == false
-          format.html { redirect_to @course_session.check_out_url , notice: 'Student activity was successfully created.' }
-          format.json { render json: @course_session.check_out_url, status: :created, location: @student_activity }
+          format.html { render action: "confirmation_out" }
+          format.json {render json: @student_activity.errors, status: :unprocessable_entity  }
 
         else
           format.html { redirect_to @student_activity , notice: 'Student activity was successfully created.' }
@@ -96,6 +99,7 @@ class StudentActivitiesController < ApplicationController
   # PUT /student_activities/1
   # PUT /student_activities/1.json
   def update
+    authorize! :update, @user, :message => 'Not authorized.'
     @student_activity = StudentActivity.find(params[:id])
 
     respond_to do |format|
@@ -112,6 +116,7 @@ class StudentActivitiesController < ApplicationController
   # DELETE /student_activities/1
   # DELETE /student_activities/1.json
   def destroy
+    authorize! :destroy, @user, :message => 'Not authorized.'
     @student_activity = StudentActivity.find(params[:id])
     @student_activity.destroy
 
@@ -120,4 +125,14 @@ class StudentActivitiesController < ApplicationController
       format.json { head :no_content }
     end
   end
+end
+
+def confirmation_in
+  @student_activity = StudentActivity.last
+  @course_session = CourseSession.find(@student_activity.course_session_id)
+end
+
+def confirmation_out
+  @student_activity = StudentActivity.last
+  @course_session = CourseSession.find(@student_activity.course_session_id)
 end

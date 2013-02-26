@@ -7,7 +7,8 @@
 
 <p>
   <b>Instructor:</b>
-  <%= @course.instructor%>
+  <% user_id = @course.instructor%>
+  <%= User.find(user_id).name %>
 </p>
 
 <p>
@@ -32,8 +33,10 @@
 <br><br>
 
 <p>
-  <b>Students:</b>
-  <%= @course.users %>
+  <b>Students:</b> <br>
+  <% @course.users.each do |u|%>
+     <%= link_to u.name, u %><br>
+  <% end %>
 </p>
 
 

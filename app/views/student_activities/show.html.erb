@@ -6,6 +6,12 @@
 </p>
 
 <p>
+  <b>Course:</b>
+  <% course_id = @student_activity.course_session_id %>
+  <%= Course.find(course_id).name %>
+</p>
+
+<p>
   <b>Course session:</b>
   <%= @student_activity.course_session_id %>
 </p>
@@ -26,5 +32,5 @@
 </p>
 
 
-<%= link_to 'Edit', edit_student_activity_path(@student_activity) %> |
-<%= link_to 'Back', student_activities_path %>
+<%= link_to 'Home', root_path %> |
+

@@ -3,6 +3,7 @@ class CoursesController < ApplicationController
   # GET /courses
   # GET /courses.json
   def index
+    authorize! :index, @user, :message => 'Not authorized.'
     @courses = Course.all
 
     respond_to do |format|
@@ -14,6 +15,7 @@ class CoursesController < ApplicationController
   # GET /courses/1
   # GET /courses/1.json
   def show
+    authorize! :show, @user, :message => 'Not authorized.'
     @course = Course.find(params[:id])
     @course_sessions = CourseSession.all
 
@@ -26,6 +28,7 @@ class CoursesController < ApplicationController
   # GET /courses/new
   # GET /courses/new.json
   def new
+    authorize! :new, @user, :message => 'Not authorized.'
     @course = Course.new
 
 
@@ -37,12 +40,14 @@ class CoursesController < ApplicationController
 
   # GET /courses/1/edit
   def edit
+    authorize! :edit, @user, :message => 'Not authorized.'
     @course = Course.find(params[:id])
   end
 
   # POST /courses
   # POST /courses.json
   def create
+    authorize! :create, @user, :message => 'Not authorized.'
     @course = Course.new(params[:course])
 
     respond_to do |format|
@@ -59,6 +64,7 @@ class CoursesController < ApplicationController
   # PUT /courses/1
   # PUT /courses/1.json
   def update
+    authorize! :update, @user, :message => 'Not authorized.'
     @course = Course.find(params[:id])
 
     respond_to do |format|
@@ -75,6 +81,7 @@ class CoursesController < ApplicationController
   # DELETE /courses/1
   # DELETE /courses/1.json
   def destroy
+    authorize! :destroy, @user, :message => 'Not authorized.'
     @course = Course.find(params[:id])
     @course.destroy
 

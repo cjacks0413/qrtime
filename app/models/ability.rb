@@ -7,10 +7,19 @@ class Ability
       can :manage, :all
 
     elsif user.has_role? :instructor
-    can :manage
+       can :manage, :all
+
 
     elsif user.has_role? :student
-    can :read
+    can :check_in, [CourseSession, StudentActivity]
+    can :check_out, [CourseSession, StudentActivity]
+    can :confirmation_in, StudentActivity
+    can :confirmation_out, StudentActivity
+    cannot :destroy, StudentActivity
+    cannot :update, StudentActivity
+    cannot :edit, StudentActivity
+    cannot :manage, [Course, CourseSession]
+
 
    end
     # Define abilities for the passed in user here. For example:
