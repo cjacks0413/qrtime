@@ -1,22 +1,37 @@
 <h3>User</h3>
 <p><b> User:</b> <%= @user.name %></p>
 <p><b>Email:</b> <%= @user.email if @user.email %></p>
-<p><b>Courses:</b>
+
 <% if @user.has_role?(:student) == true  %> <br>
+    <p><b>Courses:</b>
 <% @user.courses.each do |c| %>
     <%= c.name %> <br>
   <% end %>
-<% end %>
 
-<% if @user.has_role?(:instructor) == true %>   <br>
+      <p><b>Student Activity:</b></p>
+      <% StudentActivity.all(:conditions => {:user_id => @user.id}).each do |activity|  %>
+          <tr>
+            <td><%= activity.course_session.course.name %></td>
+            <td><%= activity.action %></td>
+            <td><%= activity.date %></td>
+            <td><%= activity.time %></td>
+            <td><%= link_to 'Show', activity %></td>
+            <td><%= link_to 'Edit', edit_student_activity_path(activity) %></td>
+            <td><%= link_to 'Destroy', activity, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+          <br>
+
+      <% end %>
+
+
+<% elsif @user.has_role?(:instructor) == true %>   <br>
+    <p><b>Courses:</b>
       <% Course.all(:conditions => {:instructor => @user.id}).each do |course|  %>
          <%= course.name %> <br>
       <% end %>
 <% end %>
 
-<% if @user.has_role?(:admin) == true %>
-      <b>Admin</b>
-<% end %>
+
 
 </p>
 
@@ -29,17 +44,4 @@
 
 </p>
 
-<p><b>Student Activity:</b></p>
-<% StudentActivity.all(:conditions => {:user_id => @user.id}).each do |activity|  %>
-    <tr>
-      <td><%= activity.course_session.course.name %></td>
-      <td><%= activity.action %></td>
-      <td><%= activity.date %></td>
-      <td><%= activity.time %></td>
-      <td><%= link_to 'Show', activity %></td>
-      <td><%= link_to 'Edit', edit_student_activity_path(activity) %></td>
-      <td><%= link_to 'Destroy', activity, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    </tr>
-    <br>
 
-<% end %>
