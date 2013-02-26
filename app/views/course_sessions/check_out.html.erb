@@ -1,5 +1,21 @@
 Ah, so you want to check out of <%= @course_session.course.name %> session <%= @course_session.id %> on <%= @course_session.date %> ending at <%= @course_session.end_time %>? Well good for you!
-<%= form_for @student_activity, :url => {:controller => :student_activities, :action => "check_out"} do |f|  %>
-    <%=  f.hidden_field :course_session_id %>
-    <%= f.submit %>
+<% if current_user.has_role?(:student) == true %>
+    <% if current_user.enrolled_in?(@course_session.course)  %>
+        <%= form_for @student_activity, :url => {:controller => :student_activities, :action => "check_out"} do |f|  %>
+            <%=  f.hidden_field :course_session_id %>
+            <%= f.submit %>
+        <% end %>
+    <% else %><br><br>
+        You are not enrolled in <%= @course_session.course.name %>. Please go back to <%= link_to 'Home', root_path %> to enroll.
+    <% end %>
+
+<% elsif current_user.has_role?(:instructor) == true %> <br><br>
+    You are an instructor. You cannot check out.
+    <br><br>
+    <%= link_to 'Home', root_path %>
+
+<% elsif current_user.has_role?(:admin) == true %>   <br><br>
+    You are an admin. You cannot check out.
+    <br><br>
+    <%= link_to 'Home', root_path %>
 <% end %>
