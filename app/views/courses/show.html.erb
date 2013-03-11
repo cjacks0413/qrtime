@@ -11,21 +11,56 @@
   <%= User.find(user_id).name %>
 </p>
 
-<p>
-  <b>Course Sessions:</b>
-  <br>
-  <% @course.course_sessions.each do |course_session| %>
+<% if current_user.has_role?(:student) == true  %>
+    <table border="1">
       <tr>
-        <td><%= course_session.course.name %></td>
+        <th>Course Session</th>
+        <th>Action</th>
+        <th>Date</th>
+        <th>Time</th>
+
+      </tr>
+    <% @student_activities.each do |activity|  %>
+        <% if activity.course_session.course == @course %>
+
+
+            <tr>
+              <td><%= activity.course_session_id %></td>
+              <td><%= activity.action %></td>
+              <td><%= activity.date %></td>
+              <td><%= activity.time %></td>
+            </tr>
+            <br>
+
+     <% end %>
+    <% end %>
+    </table>
+    <br>
+    <%= link_to 'Back', root_path %>
+
+<% else %>
+
+<p>
+
+    <table border="1">
+      <tr>
+        <th>Course Session</th>
+        <th>Date</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+
+      </tr>
+  <% @course.course_sessions.each do |course_session| %>
+
+      <tr>
+        <td><%= link_to(course_session.id, course_session) %></td>
         <td><%= course_session.date %></td>
         <td><%= course_session.start_time %></td>
         <td><%= course_session.end_time %></td>
-        <td><%= link_to 'Show', course_session %></td>
-        <td><%= link_to 'Edit', edit_course_session_path(course_session) %></td>
-        <td><%= link_to 'Destroy', course_session, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
       <br>
   <% end %>
+    </table>
 </p>
 
 <%= link_to 'New Course session', new_course_session_path %>
@@ -33,7 +68,7 @@
 <br><br>
 
 <p>
-  <b>Students:</b> <br>
+  <b>Students Enrolled:</b> <br>
   <% @course.users.each do |u|%>
      <%= link_to u.name, u %><br>
   <% end %>
@@ -44,5 +79,8 @@
 <br>
 <br>
 
-<%= link_to 'Edit', edit_course_path(@course) %> |
-<%= link_to 'Back', courses_path %>
+<%= link_to 'Edit', edit_course_path(@course) %>
+<%= link_to 'Destroy', @course, method: :delete, data: { confirm: 'Are you sure?' } %>|
+<%= link_to 'Back', root_path %>
+
+<% end %>

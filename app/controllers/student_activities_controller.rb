@@ -3,7 +3,7 @@ class StudentActivitiesController < ApplicationController
   # GET /student_activities
   # GET /student_activities.json
   def index
-    authorize! :index, @user, :message => 'Not authorized.'
+
     @student_activities = StudentActivity.all
 
     respond_to do |format|

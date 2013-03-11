@@ -12,4 +12,6 @@
   <div class="form-actions">
     <%= f.button :submit %>
   </div>
+
+ <%= link_to 'Destroy', @student_activity, method: :delete, data: { confirm: 'Are you sure?' } %>
 <% end %>

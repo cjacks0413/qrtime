@@ -4,24 +4,77 @@
 
 <% if @user.has_role?(:student) == true  %> <br>
     <p><b>Courses:</b>
-<% @user.courses.each do |c| %>
-    <%= c.name %> <br>
-  <% end %>
+    <%  @user.courses.each do |c| %>
+          <%= link_to(c.name, c) %>
+
+     <% end %>
+
+      <% if current_user.has_role?(:admin) == true  %>
+
+    <% if !@user.courses.empty? %>
+          <%= @user.courses.collect {|c| link_to(c.name, c)}.join(", ").html_safe%>
+
+
+                        <%= form_tag(course_remove_user_path(@user)) do %>
+                    <table>
+                      <tr>
+                        <th>Course</th>
+                        <th>Remove?</th>
+                      </tr>
+                      <% for course in @courses do %>
+                          <tr>
+                            <td><%= course.name %></td>
+                            <td><%= check_box_tag "courses[]", course.id %></td>
+                          </tr>
+                      <% end %>
+                    </table>
+                    <br />
+                    <%= submit_tag 'Remove checked courses' %>
+                <% end %>
+          <% else %>
+              Not enrolled on any courses yet.
+          <% end %>
+        </p>
+
+        <b>Enroll in new course:</b>
+        <% if @user.courses.count < Course.count then %>
+            <%= form_tag(course_add_user_path(@user)) do %>
+                <%= select_tag(:course,
+                               options_from_collection_for_select(@user.unenrolled_courses,
+                                                                  :id, :name)) %>
+                <%= submit_tag 'Enroll' %>
+            <% end %>
+        <% else %>
+            <p><%= @user.name %> is enrolled in every course.</p>
+        <% end %>
+
+    <% end %>
+
+
 
       <p><b>Student Activity:</b></p>
+    <table border="1">
+      <tr>
+        <th>Course</th>
+        <th>Session</th>
+        <th>Action</th>
+        <th>Date</th>
+        <th>Time</th>
+
+      </tr>
       <% StudentActivity.all(:conditions => {:user_id => @user.id}).each do |activity|  %>
           <tr>
             <td><%= activity.course_session.course.name %></td>
+            <td><%= activity.course_session.id %></td>
             <td><%= activity.action %></td>
             <td><%= activity.date %></td>
             <td><%= activity.time %></td>
-            <td><%= link_to 'Show', activity %></td>
             <td><%= link_to 'Edit', edit_student_activity_path(activity) %></td>
-            <td><%= link_to 'Destroy', activity, method: :delete, data: { confirm: 'Are you sure?' } %></td>
           </tr>
           <br>
 
       <% end %>
+        </table>
 
 
 <% elsif @user.has_role?(:instructor) == true %>   <br>
@@ -43,5 +96,14 @@
 <% end %>
 
 </p>
+
+<% if current_user.has_role?(:admin) == true  %>
+<%= link_to 'Back', users_path %>
+<% end %>
+
+<% if current_user.has_role?(:instructor) == true  %>
+    <!--should link to course that instructor was just looking at, not all the way home-->
+    <%= link_to 'Back', root_path %>
+<% end %>
 
 

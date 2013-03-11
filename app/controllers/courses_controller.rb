@@ -15,9 +15,9 @@ class CoursesController < ApplicationController
   # GET /courses/1
   # GET /courses/1.json
   def show
-    authorize! :show, @user, :message => 'Not authorized.'
     @course = Course.find(params[:id])
     @course_sessions = CourseSession.all
+    @student_activities = StudentActivity.all(:conditions => {:user_id => current_user.id})
 
     respond_to do |format|
       format.html # show.html.erb

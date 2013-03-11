@@ -2,15 +2,15 @@
 
 <% if user_signed_in? %>
 
-    <%= current_user.name %>   <br><br>
 
     <% if current_user.has_role?(:student) == true  %>
         <p>
           <b>Courses:</b>
           <% if !current_user.courses.empty? %>
-              <%= current_user.courses.collect {|c| c.name}.join(", ").html_safe%>
+              <%= current_user.courses.collect {|c| link_to(c.name, c)}.join(", ").html_safe%>
 
-                  <%= form_tag(course_remove_user_path(@user)) do %>
+
+<!--                  <%= form_tag(course_remove_user_path(@user)) do %>
                     <table>
                       <tr>
                         <th>Course</th>
@@ -41,29 +41,16 @@
             <% end %>
         <% else %>
             <p><%= @user.name %> is enrolled in every course.</p>
-        <% end %>
+        <% end %>-->
 
-        <b>Student Activity:</b><br>
-        <% StudentActivity.all(:conditions => {:user_id => current_user.id}).each do |activity|  %>
-            <tr>
-              <td><%= activity.course_session.course.name %></td>
-              <td><%= activity.action %></td>
-              <td><%= activity.date %></td>
-              <td><%= activity.time %></td>
-            </tr>
-            <br>
 
-        <% end %>
     <% end %>
     <br><br>
 
     <% if current_user.has_role?(:instructor) == true  %>
         <% Course.all(:conditions => {:instructor => current_user.id}).each do |course|  %>
             <tr>
-              <td><%= course.name %></td>
-              <td><%= link_to 'Show', course %></td>
-              <td><%= link_to 'Edit', edit_course_path(course) %></td>
-              <td><%= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              <td><%= link_to(course.name, course) %></td>
             </tr>
             <br>
         <% end %>

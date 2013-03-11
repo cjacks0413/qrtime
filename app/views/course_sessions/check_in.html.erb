@@ -1,10 +1,16 @@
-Ah, so you want to check in to <%= @course_session.course.name %> session <%= @course_session.id %> on <%= @course_session.date %> starting at <%= @course_session.start_time %>? Well good for you!
+Course: <%= @course_session.course.name %> <br><br>
+
+Course Session: <%= @course_session.id %>    <br><br>
+
+Date: <%= @course_session.date %>    <br><br>
+
+Start Time: <%= @course_session.start_time %>    <br><br>
 
 <% if current_user.has_role?(:student) == true %>
 <% if current_user.enrolled_in?(@course_session.course)  %>
     <%= form_for @student_activity, :url => {:controller => :student_activities, :action => "check_in"} do |f|  %>
         <%=  f.hidden_field :course_session_id %>
-        <%= f.submit %>
+        <%= f.submit "Check In" %>
     <% end %>
     <% else %><br><br>
     You are not enrolled in <%= @course_session.course.name %>. Please go back to <%= link_to 'Home', root_path %> to enroll.

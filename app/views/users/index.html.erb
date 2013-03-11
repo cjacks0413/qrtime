@@ -23,8 +23,13 @@
         <%= render user %>
       </td>
       <td><%= link_to("Delete user", user_path(user), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'btn btn-mini') unless user == current_user %></td>
+      <td><%= link_to("Enroll in Course", user_path(user), :class => 'btn btn-mini') if user.has_role?(:student) == true %></td>
     </tr>
   <% end %>
   </tbody>
 </table>
+  <br><br>
+  <%= link_to("Back", root_path) %>
 </div>
+
+

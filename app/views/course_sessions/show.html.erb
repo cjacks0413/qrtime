@@ -43,5 +43,6 @@
   </tr>
 </table>
 
-<%= link_to 'Edit', edit_course_session_path(@course_session) %> |
-<%= link_to 'Back', course_sessions_path %>
+<%= link_to 'Edit', edit_course_session_path(@course_session) %>
+<%= link_to 'Destroy', @course_session, method: :delete, data: { confirm: 'Are you sure?' } %>|
+<%= link_to 'Back', course_path(@course_session.course) %>
