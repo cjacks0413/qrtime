@@ -48,7 +48,7 @@ class StudentActivitiesController < ApplicationController
     @student_activity.user_id = current_user.id
     @student_activity.action = "Check-In"
     @student_activity.date = Date.today
-    @student_activity.time = Time.now.in_time_zone("Eastern Time (US & Canada)")
+    @student_activity.time = Time.now.strftime("%I:%M:%S")
 
     @course_session = CourseSession.find(@student_activity.course_session_id)
 
@@ -75,7 +75,7 @@ class StudentActivitiesController < ApplicationController
     @student_activity.user_id = current_user.id
     @student_activity.action = "Check-Out"
     @student_activity.date = Date.today
-    @student_activity.time = Time.now.in_time_zone("Eastern Time (US & Canada)")
+    @student_activity.time = Time.now.strftime("%I:%M:%S")
 
     @course_session = CourseSession.find(@student_activity.course_session_id)
 
@@ -104,7 +104,7 @@ class StudentActivitiesController < ApplicationController
 
     respond_to do |format|
       if @student_activity.update_attributes(params[:student_activity])
-        format.html { redirect_to @student_activity, notice: 'Student activity was successfully updated.' }
+        format.html { redirect_to users_url, notice: 'Student activity was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -121,7 +121,7 @@ class StudentActivitiesController < ApplicationController
     @student_activity.destroy
 
     respond_to do |format|
-      format.html { redirect_to student_activities_url }
+      format.html { redirect_to users_url }
       format.json { head :no_content }
     end
   end

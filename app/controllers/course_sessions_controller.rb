@@ -84,7 +84,7 @@ class CourseSessionsController < ApplicationController
     @course_session.destroy
 
     respond_to do |format|
-      format.html { redirect_to course_sessions_url }
+      format.html { redirect_to course_url(@course_session.course) }
       format.json { head :no_content }
     end
   end

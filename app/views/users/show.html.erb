@@ -1,21 +1,24 @@
 <h3>User</h3>
 <p><b> User:</b> <%= @user.name %></p>
 <p><b>Email:</b> <%= @user.email if @user.email %></p>
+<p><b>Role:</b>
+  <% @user.roles.each do |r| %>
+      <%= r.name  %>
+  <% end %>
+
+</p>
 
 <% if @user.has_role?(:student) == true  %> <br>
     <p><b>Courses:</b>
     <%  @user.courses.each do |c| %>
           <%= link_to(c.name, c) %>
+      <% end %>
+ <% end %>
 
-     <% end %>
-
-      <% if current_user.has_role?(:admin) == true  %>
+ <% if current_user.has_role?(:admin) == true && @user.has_role?(:student) == true  %>
 
     <% if !@user.courses.empty? %>
-          <%= @user.courses.collect {|c| link_to(c.name, c)}.join(", ").html_safe%>
-
-
-                        <%= form_tag(course_remove_user_path(@user)) do %>
+            <%= form_tag(course_remove_user_path(@user)) do %>
                     <table>
                       <tr>
                         <th>Course</th>
@@ -30,10 +33,10 @@
                     </table>
                     <br />
                     <%= submit_tag 'Remove checked courses' %>
-                <% end %>
-          <% else %>
-              Not enrolled on any courses yet.
-          <% end %>
+             <% end %>
+     <% else %>
+         Not enrolled on any courses yet.
+     <% end %>
         </p>
 
         <b>Enroll in new course:</b>
@@ -48,11 +51,10 @@
             <p><%= @user.name %> is enrolled in every course.</p>
         <% end %>
 
-    <% end %>
 
 
 
-      <p><b>Student Activity:</b></p>
+      <b>Student Activity:</b>
     <table border="1">
       <tr>
         <th>Course</th>
@@ -68,17 +70,17 @@
             <td><%= activity.course_session.id %></td>
             <td><%= activity.action %></td>
             <td><%= activity.date %></td>
-            <td><%= activity.time %></td>
+            <td><%= activity.time.strftime("%I:%M:%S") %></td>
             <td><%= link_to 'Edit', edit_student_activity_path(activity) %></td>
           </tr>
-          <br>
 
       <% end %>
         </table>
 
+<% end %>
 
-<% elsif @user.has_role?(:instructor) == true %>   <br>
-    <p><b>Courses:</b>
+<% if @user.has_role?(:instructor) == true %>   <br>
+    <p><b>Courses Taught:</b> <br>
       <% Course.all(:conditions => {:instructor => @user.id}).each do |course|  %>
          <%= course.name %> <br>
       <% end %>
@@ -88,14 +90,6 @@
 
 </p>
 
-
-<p><b>Role:</b>
-<% @user.roles.each do |r| %>
-   <%= r.name  %>
-
-<% end %>
-
-</p>
 
 <% if current_user.has_role?(:admin) == true  %>
 <%= link_to 'Back', users_path %>

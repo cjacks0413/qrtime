@@ -13,7 +13,7 @@ Start Time: <%= @course_session.start_time %>    <br><br>
         <%= f.submit "Check In" %>
     <% end %>
     <% else %><br><br>
-    You are not enrolled in <%= @course_session.course.name %>. Please go back to <%= link_to 'Home', root_path %> to enroll.
+    You are not enrolled in <%= @course_session.course.name %>. Please ask an admin to enroll you in this course.
     <% end %>
 
 <% elsif current_user.has_role?(:instructor) == true %> <br><br>
