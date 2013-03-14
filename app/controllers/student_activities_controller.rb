@@ -59,8 +59,8 @@ class StudentActivitiesController < ApplicationController
           format.json {render json: @student_activity.errors, status: :unprocessable_entity  }
 
         else
-        format.html { redirect_to @student_activity , notice: 'Student activity was successfully created.' }
-        format.json { render json: @student_activity, status: :created, location: @student_activity }
+        format.html { redirect_to root_url , notice: 'Student activity was successfully created.' }
+        format.json { render json: root_url, status: :created, location: @student_activity }
         end
       else
         format.html { render action: "new" }
@@ -81,13 +81,13 @@ class StudentActivitiesController < ApplicationController
 
     respond_to do |format|
       if @student_activity.save
-        if  @course_session.check_in_url.nil? == false
+        if  @course_session.check_out_url != ""
           format.html { render action: "confirmation_out" }
           format.json {render json: @student_activity.errors, status: :unprocessable_entity  }
 
         else
-          format.html { redirect_to @student_activity , notice: 'Student activity was successfully created.' }
-          format.json { render json: @student_activity, status: :created, location: @student_activity }
+          format.html { redirect_to root_url , notice: 'Student activity was successfully created.' }
+          format.json { render json: root_url, status: :created, location: @student_activity }
         end
       else
         format.html { render action: "new" }

@@ -1,6 +1,6 @@
 class CourseSession < ActiveRecord::Base
   resourcify
-  attr_accessible :course_id, :date, :end_time, :start_time, :description, :check_in_url, :check_out_url
+  attr_accessible :course_id, :date, :end_time, :start_time, :description, :check_in_url, :check_out_url, :counter
 
   validates_presence_of :course_id, :date, :end_time, :start_time
   belongs_to :course

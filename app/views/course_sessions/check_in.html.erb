@@ -1,16 +1,19 @@
-Course: <%= @course_session.course.name %> <br><br>
-
-Course Session: <%= @course_session.id %>    <br><br>
-
-Date: <%= @course_session.date %>    <br><br>
-
-Start Time: <%= @course_session.start_time %>    <br><br>
-
 <% if current_user.has_role?(:student) == true %>
 <% if current_user.enrolled_in?(@course_session.course)  %>
-    <%= form_for @student_activity, :url => {:controller => :student_activities, :action => "check_in"} do |f|  %>
-        <%=  f.hidden_field :course_session_id %>
-        <%= f.submit "Check In" %>
+
+      <% if current_user.student_activities.all(:conditions => {:course_session_id => @course_session.id, :action => "Check-In"}).length > 0 %>
+              You have already checked in to this course.
+                <% if  @course_session.check_in_url != "" %>
+                  <%= link_to 'Continue to Course Materials', @course_session.check_in_url %>
+                <% else %>
+                <br><br><%= link_to 'Home', root_path %>
+                <% end %>
+      <% else %>
+             <%= form_for @student_activity, :url => {:controller => :student_activities, :action => "check_in"} do |f|  %>
+            <%=  f.hidden_field :course_session_id %>
+            <%= f.submit "Check In to " + @course_session.course.name, :class => 'checkbutton'  %>
+       <% end %>
+
     <% end %>
     <% else %><br><br>
     You are not enrolled in <%= @course_session.course.name %>. Please ask an admin to enroll you in this course.

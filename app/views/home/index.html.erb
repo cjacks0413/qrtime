@@ -6,7 +6,6 @@
         <table border="1">
           <tr>
             <th>Course</th>
-            <th>Session</th>
             <th>Action</th>
             <th>Date</th>
             <th>Time</th>
@@ -16,7 +15,6 @@
 
                   <tr>
                     <td><%= activity.course_session.course.name %></td>
-                    <td><%= activity.course_session_id %></td>
                     <td><%= activity.action %></td>
                     <td><%= activity.date %></td>
                     <td><%= activity.time.strftime("%I:%M:%S") %></td>
