@@ -59,7 +59,7 @@ class StudentActivitiesController < ApplicationController
           format.json {render json: @student_activity.errors, status: :unprocessable_entity  }
 
         else
-        format.html { redirect_to root_url , notice: 'Student activity was successfully created.' }
+        format.html { redirect_to root_url , notice: 'You have successfully checked in.' }
         format.json { render json: root_url, status: :created, location: @student_activity }
         end
       else
@@ -86,7 +86,7 @@ class StudentActivitiesController < ApplicationController
           format.json {render json: @student_activity.errors, status: :unprocessable_entity  }
 
         else
-          format.html { redirect_to root_url , notice: 'Student activity was successfully created.' }
+          format.html { redirect_to root_url , notice: 'You have successfully checked out.' }
           format.json { render json: root_url, status: :created, location: @student_activity }
         end
       else
