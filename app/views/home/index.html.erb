@@ -6,21 +6,43 @@
         <table border="1">
           <tr>
             <th>Course</th>
-            <th>Action</th>
             <th>Date</th>
-            <th>Time</th>
+            <th>Start Time</th>
+            <th>Check-In</th>
+            <th>Check-Out</th>
 
           </tr>
-          <% @student_activities.each do |activity|  %>
 
-                  <tr>
-                    <td><%= activity.course_session.course.name %></td>
-                    <td><%= activity.action %></td>
-                    <td><%= activity.date %></td>
-                    <td><%= activity.time.strftime("%I:%M:%S") %></td>
+          <% @courses.each do |c| %>
+              <% cs = c.course_sessions %>
+                <% cs.each do |s| %>
+                <% sa = s.student_activities %>
+                <% if sa.length == 0 %>
+                      <tr class = "absent">
+                <% elsif sa.length == 1 %>
+                      <tr class = "late">
+                <% else %>
+                    <% classlength = s.end_time - s.start_time %>
+                    <% inclass = sa.last.time - sa.first.time %>
+                      <% if inclass < classlength %>
+                          <tr class = "late">
+                      <% else %>
+                          <tr class = "present">
+                      <% end %>
+                <% end %>
+
+                    <td><%= s.course.name %></td>
+                    <td><%= s.date %></td>
+                    <td><%= s.start_time %></td>
+                    <% if sa.length > 0 %>
+                        <td><%= sa.first.time.strftime("%I:%M:%S") %></td>
+                    <% end %>
+                    <% if sa.length > 1 %>
+                        <td><%= sa.last.time.strftime("%I:%M:%S") %></td>
+                    <% end %>
                   </tr>
 
-
+              <% end %>
           <% end %>
         </table>
 
