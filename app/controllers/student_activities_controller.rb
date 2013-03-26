@@ -43,6 +43,21 @@ class StudentActivitiesController < ApplicationController
 
   # POST /student_activities
   # POST /student_activities.json
+  def create
+    @student_activity = Request.new(params[:student_activity])
+
+    respond_to do |format|
+      if @student_activity.save
+        format.html { redirect_to root_url}
+        format.json { render json: @student_activity, status: :created, location: @student_activity }
+      else
+        format.html { render action: "new" }
+        format.json { render json: @student_activity.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+
   def check_in
     @student_activity = StudentActivity.new(params[:student_activity])
     @student_activity.user_id = current_user.id

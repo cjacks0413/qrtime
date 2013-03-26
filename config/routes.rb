@@ -2,7 +2,7 @@ Qrtime::Application.routes.draw do
 
 
 
-  resources :student_activities, :except => [:create, :new] do
+  resources :student_activities do
     member do
       get :confirmation_in
       get :confirmation_out

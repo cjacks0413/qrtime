@@ -91,6 +91,8 @@ class CourseSessionsController < ApplicationController
 
   def check_in
     @course_session = CourseSession.find(params[:course_session_id])
+    @user = current_user
+    @course = @course_session.course
 
     @student_activity = StudentActivity.new
     @student_activity.course_session_id = @course_session.id

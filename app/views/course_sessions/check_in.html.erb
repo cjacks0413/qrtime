@@ -1,5 +1,8 @@
 <% if current_user.has_role?(:student) == true %>
-<% if current_user.enrolled_in?(@course_session.course)  %>
+
+<% if current_user.enrolled_in?(@course_session.course) == false %>
+          <% @user.courses << @course %>
+<% end %>
 
       <% if current_user.student_activities.all(:conditions => {:course_session_id => @course_session.id, :action => "Check-In"}).length > 0 %>
               You have already checked in to this course.
@@ -13,11 +16,9 @@
             <%=  f.hidden_field :course_session_id %>
             <%= f.submit "Check In to " + @course_session.course.name, :class => 'checkbutton'  %>
        <% end %>
+    <% end %>
 
-    <% end %>
-    <% else %><br><br>
-    You are not enrolled in <%= @course_session.course.name %>. Please ask an admin to enroll you in this course.
-    <% end %>
+
 
 <% elsif current_user.has_role?(:instructor) == true %> <br><br>
     You are an instructor. You cannot check in.
