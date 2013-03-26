@@ -66,7 +66,7 @@
       <% @courses.each do |c| %>
           <% cs = c.course_sessions.all(:conditions => ["date < ?", Time.now.beginning_of_day]) %>
           <% cs.each do |s| %>
-              <% sa = s.student_activities %>
+              <% sa = s.student_activities.all(:conditions => ["user_id = ?", @user.id]) %>
               <% if sa.length == 0 %>
                   <tr class = "absent">
               <% elsif sa.length == 1 %>
