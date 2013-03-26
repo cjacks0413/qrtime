@@ -22,8 +22,12 @@
                 <% elsif sa.length == 1 %>
                       <tr class = "late">
                 <% else %>
-                    <% classlength = s.end_time - s.start_time %>
-                    <% inclass = sa.last.time - sa.first.time %>
+                    <% t1 = s.end_time.to_i %>
+                    <% t2 = s.start_time.to_i %>
+                    <% classlength = t1-t2 %>
+                    <% t3 = sa.last.time.to_i %>
+                    <% t4 = sa.first.time.to_i %>
+                    <% inclass = t3-t4 %>
                       <% if inclass < classlength %>
                           <tr class = "late">
                       <% else %>
