@@ -1,4 +1,3 @@
-<h3>User</h3>
 <p><b> User:</b> <%= @user.name %></p>
 <p><b>Email:</b> <%= @user.email if @user.email %></p>
 <p><b>Role:</b>
@@ -52,30 +51,62 @@
         <% end %>
 
 
-
-
-      <b>Student Activity:</b>
+   <br>
+    <b>Student Activity: </b>
     <table border="1">
       <tr>
         <th>Course</th>
-        <th>Session</th>
-        <th>Action</th>
         <th>Date</th>
-        <th>Time</th>
+        <th>Start Time</th>
+        <th>Check-In</th>
+        <th>Check-Out</th>
 
       </tr>
-      <% StudentActivity.all(:conditions => {:user_id => @user.id}).each do |activity|  %>
-          <tr>
-            <td><%= activity.course_session.course.name %></td>
-            <td><%= activity.course_session.id %></td>
-            <td><%= activity.action %></td>
-            <td><%= activity.date %></td>
-            <td><%= activity.time.strftime("%I:%M:%S") %></td>
-            <td><%= link_to 'Edit', edit_student_activity_path(activity) %></td>
-          </tr>
 
+      <% @courses.each do |c| %>
+          <% cs = c.course_sessions.all(:conditions => ["date < ?", Time.now.beginning_of_day]) %>
+          <% cs.each do |s| %>
+              <% sa = s.student_activities %>
+              <% if sa.length == 0 %>
+                  <tr class = "absent">
+              <% elsif sa.length == 1 %>
+                  <tr class = "late">
+              <% else %>
+                  <% classlength = s.end_time - s.start_time %>
+                  <% inclass = sa.last.time - sa.first.time %>
+                  <% if inclass < classlength %>
+                      <tr class = "late">
+                  <% else %>
+                      <tr class = "present">
+                  <% end %>
+              <% end %>
+
+              <td><%= s.course.name %></td>
+              <td><%= s.date %></td>
+              <td><%= s.start_time.strftime("%I:%M:%S") %></td>
+              <% if sa.length > 0 %>
+                  <td><%= sa.first.time.strftime("%I:%M:%S") %></td>
+              <% end %>
+              <% if sa.length > 1 %>
+                  <td><%= sa.last.time.strftime("%I:%M:%S") %></td>
+              <% end %>
+              <% if sa.length == 0 && 1 == 0%>
+                  <td></td>
+                  <td></td>
+                  <%= simple_form_for(@student_activity) do |f| %>
+                      <%= f.error_notification %>
+
+                      <td><%= f.input :excuse %>
+                        <%= f.submit "Submit Absence Excuse" %></td>
+
+                  <% end %>
+
+              <% end %>
+              </tr>
+
+          <% end %>
       <% end %>
-        </table>
+    </table>
 
 <% end %>
 
