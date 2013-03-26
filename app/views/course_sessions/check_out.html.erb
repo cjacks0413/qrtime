@@ -1,8 +1,10 @@
 <% if current_user.has_role?(:student) == true %>
-    <% if current_user.enrolled_in?(@course_session.course)  %>
-
+    <% if current_user.student_activities.all(:conditions => {:course_session_id => @course_session.id, :action => "Check-In"}).length == 0 %>
+        You have not checked in to this course session yet. You need to check in before you can check out.
+        <br><br><%= link_to 'Home', root_path %>
+    <% else %>
         <% if current_user.student_activities.all(:conditions => {:course_session_id => @course_session.id, :action => "Check-Out"}).length > 0 %>
-            You have already checked out of this course.
+            You have already checked out of this course session.
             <% if  @course_session.check_out_url != "" %>
                 <%= link_to 'Continue to Qualtrics', @course_session.check_out_url %>
             <% else %>
@@ -12,11 +14,10 @@
         <%= form_for @student_activity, :url => {:controller => :student_activities, :action => "check_out"} do |f|  %>
             <%=  f.hidden_field :course_session_id %>
             <%= f.submit "Check Out of " + @course_session.course.name, :class => 'checkbutton'%>
+            <% end %>
         <% end %>
      <% end %>
-    <% else %><br><br>
-        You are not enrolled in <%= @course_session.course.name %>. Please go back to <%= link_to 'Home', root_path %> to enroll.
-    <% end %>
+
 
 <% elsif current_user.has_role?(:instructor) == true %> <br><br>
     You are an instructor. You cannot check out.
