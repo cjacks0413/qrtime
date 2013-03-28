@@ -12,6 +12,7 @@
     <%  @user.courses.each do |c| %>
           <%= link_to(c.name, c) %>
       <% end %>
+    <br>
  <% end %>
 
  <% if current_user.has_role?(:admin) == true && @user.has_role?(:student) == true  %>
@@ -49,7 +50,10 @@
         <% else %>
             <p><%= @user.name %> is enrolled in every course.</p>
         <% end %>
+    <% end %>
 
+
+<% if @user.has_role?(:student) == true  %>
 
    <br>
     <b>Student Activity: </b>
@@ -127,8 +131,7 @@
 <% end %>
 
 <% if current_user.has_role?(:instructor) == true  %>
-    <!--should link to course that instructor was just looking at, not all the way home-->
-    <%= link_to 'Back', root_path %>
+    <%= link_to 'Back', :back %>
 <% end %>
 
 
