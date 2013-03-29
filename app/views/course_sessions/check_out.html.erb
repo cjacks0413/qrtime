@@ -20,12 +20,14 @@
 
 
 <% elsif current_user.has_role?(:instructor) == true %> <br><br>
-    You are an instructor. You cannot check out.
+    You are an instructor. Here is the QR code for students to check out of <%= @course_session.course.name %> . <br><br>
+    <%=  image_tag( course_session_check_out_url(@course_session, :format => :png)) %>
     <br><br>
     <%= link_to 'Home', root_path %>
 
 <% elsif current_user.has_role?(:admin) == true %>   <br><br>
-    You are an admin. You cannot check out.
+    You are an admin. Here is the QR code for students to check out of <%= @course_session.course.name %> . <br><br>
+    <%=  image_tag( course_session_check_out_url(@course_session, :format => :png)) %>.
     <br><br>
     <%= link_to 'Home', root_path %>
 <% end %>
