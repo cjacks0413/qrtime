@@ -14,3 +14,6 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require_tree .
+$(function() {
+    $("#course_session_date").datepicker();
+});

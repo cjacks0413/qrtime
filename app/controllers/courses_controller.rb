@@ -5,6 +5,8 @@ class CoursesController < ApplicationController
   def index
     authorize! :index, @user, :message => 'Not authorized.'
     @courses = Course.all
+    @course_sessions = CourseSession.all
+    @caldate = params[:month] ? Date.parse(params[:month]) : Date.today
 
     respond_to do |format|
       format.html # index.html.erb

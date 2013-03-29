@@ -61,7 +61,7 @@
     <% end %>
 
     <% if current_user.has_role?(:instructor) == true  %>
-        <% Course.all(:conditions => {:instructor => current_user.id}).each do |course|  %>
+        <% @courses.each do |course|  %>
             <tr>
               <td><%= link_to(course.name, course) %></td>
             </tr>
@@ -69,6 +69,36 @@
         <% end %>
         <br>
         <%= link_to 'New Course', new_course_path %>
+
+        <% if @courses.length > 0 %>
+
+
+
+
+            <div id="calendar">
+              <h2 id="month">
+
+                <%= link_to "<", :month => (@caldate.beginning_of_month-1).strftime("%Y-%m-%d") %>
+                <%=h @caldate.strftime("%B %Y") %>
+                <%= link_to ">", :month => (@caldate.end_of_month+1).strftime("%Y-%m-%d") %>
+
+              </h2>
+              <%= calendar_for(@course_sessions, :year => @caldate.year, :month => @caldate.month) do |calendar| %>
+                  <%= calendar.head('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday') %>
+                  <%= calendar.day do |day, coursesessions| %>
+                      <%= day.day %>
+                      <ul>
+                        <% coursesessions.each do |coursesession| %>
+                            <li><%= link_to h(coursesession.course.name), coursesession %></li>
+                        <% end %>
+                      </ul>
+                  <% end %>
+              <% end %>
+            </div>
+
+
+
+        <% end %>
 
 
     <% end %>
