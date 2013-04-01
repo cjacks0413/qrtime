@@ -38,8 +38,10 @@
 <table cellpadding=40>
   <tr><th>Check in QR:</th><th>Check Out QR:</th></tr>
   <tr>
-      <td><%=  image_tag( course_session_check_in_url(@course_session, :format => :png)) %></td>
-      <td><%=  image_tag( course_session_check_out_url(@course_session, :format => :png)) %></td>
+      <td><%= link_to (image_tag(course_session_check_in_url(@course_session, :format => :png))),
+                      course_session_check_in_url(@course_session)%></td>
+    <td><%= link_to (image_tag(course_session_check_out_url(@course_session, :format => :png))),
+                    course_session_check_out_url(@course_session)%></td>
   </tr>
 </table>
 
