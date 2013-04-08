@@ -65,8 +65,8 @@
                 <tr class = "late">
                 <% pa = "n/a" %>
             <% else %>
-                <% classlength = @course_session.end_time - @course_session.start_time %>
-                <% inclass = sa.last.time - sa.first.time %>
+                <% classlength = @course_session.end_time.strftime("%I:%M:%S") - @course_session.start_time.strftime("%I:%M:%S") %>
+                <% inclass = sa.last.time.strftime("%I:%M:%S") - sa.first.time.strftime("%I:%M:%S") %>
                 <% pa = ((inclass/classlength).round(2))*100 %>
                 <% if pa>100 %>
                     <% pa = 100 %>
