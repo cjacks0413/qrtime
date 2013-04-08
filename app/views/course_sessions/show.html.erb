@@ -22,7 +22,7 @@
 
 <p>
   <b>End time:</b>
-  <%= @course_session.end_time.strftime("%I:%M:%S") %>
+  <%= @course_session.end_time.strftime("%I:%M:%S")  %>
 </p>
 
 <p>
@@ -91,6 +91,8 @@
             <td></td>
             <% end %>
             <td><%= pa %></td>
+            <td><%= classlength %></td>
+            <td><%= inclass %></td>
             </tr>
 
         <% end %>
