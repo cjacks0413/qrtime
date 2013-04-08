@@ -15,5 +15,8 @@
 //= require twitter/bootstrap
 //= require_tree .
 $(function() {
-    $("#course_session_date").datepicker();
+    $('#show_whatever').click(function(event){
+        event.preventDefault();
+        $('#whatever').toggle();
+    });
 });

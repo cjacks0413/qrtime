@@ -45,6 +45,63 @@
   </tr>
 </table>
 
+<a href="#" id="show_whatever">Show Student Activity</a>
+<div id="whatever" style="display:none">
+  <table border="1">
+    <tr>
+      <th>Student</th>
+      <th>Check-In</th>
+      <th>Check-Out</th>
+      <th>% Attended</th>
+
+    </tr>
+     <% if @users.length != 0 %>
+        <% @users.each do |u| %>
+            <% sa = u.student_activities.all(:conditions => ["course_session_id = ?", @course_session.id, ]) %>
+            <% if sa.length == 0 %>
+                <tr class = "absent">
+                <% pa = 0 %>
+            <% elsif sa.length == 1 %>
+                <tr class = "late">
+                <% pa = "n/a" %>
+            <% else %>
+                <% classlength = (@course_session.end_time - @course_session.start_time).to_i %>
+                <% inclass = (sa.last.time - sa.first.time).to_i %>
+                <% pa = inclass/classlength %>
+                <% if pa>100 %>
+                    <% pa = 100 %>
+                <% end %>
+                <% if inclass < classlength %>
+                    <tr class = "late">
+                <% else %>
+                    <tr class = "present">
+                <% end %>
+            <% end %>
+
+            <td><%= u.name %></td>
+            <% if sa.length > 0 %>
+                <td><%= sa.first.time.strftime("%I:%M:%S") %></td>
+            <% else %>
+                <td></td>
+                <td></td>
+            <% end %>
+            <% if sa.length > 1 %>
+                <td><%= sa.last.time.strftime("%I:%M:%S") %></td>
+            <% elsif sa.length == 1 %>
+            <td></td>
+            <% end %>
+            <td><%= pa %></td>
+            </tr>
+
+        <% end %>
+    <% end %>
+  </table>
+
+
+</div>
+
+
+<br><br>
 <%= link_to 'Edit', edit_course_session_path(@course_session) %>
 <%= link_to 'Destroy', @course_session, method: :delete, data: { confirm: 'Are you sure?' } %>|
 <%= link_to 'Back', course_path(@course_session.course) %>

@@ -17,6 +17,9 @@ class CourseSessionsController < ApplicationController
   def show
     authorize! :show, @user, :message => 'Not authorized.'
     @course_session = CourseSession.find(params[:id])
+    @student_activities = StudentActivity.all(:conditions => {:course_session_id => @course_session.id})
+    @course = @course_session.course
+    @users = @course.users
 
     respond_to do |format|
       format.html # show.html.erb
