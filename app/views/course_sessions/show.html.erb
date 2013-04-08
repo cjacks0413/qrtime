@@ -67,7 +67,7 @@
             <% else %>
                 <% classlength = @course_session.end_time - @course_session.start_time %>
                 <% inclass = sa.last.time - sa.first.time %>
-                <% pa = inclass/classlength %>
+                <% pa = (inclass/classlength).round(2) %>
                 <% if pa>100 %>
                     <% pa = 100 %>
                 <% end %>
@@ -90,7 +90,7 @@
             <% elsif sa.length == 1 %>
             <td></td>
             <% end %>
-            <td><%= pa.round(2) %></td>
+            <td><%= pa %></td>
             </tr>
 
         <% end %>
