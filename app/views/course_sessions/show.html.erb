@@ -67,11 +67,11 @@
             <% else %>
                 <% classlength = @course_session.end_time - @course_session.start_time %>
                 <% inclass = sa.last.time - sa.first.time %>
-                <% pa = (inclass/classlength).round(2) %>
+                <% pa = ((inclass/classlength).round(2))*100 %>
                 <% if pa>100 %>
                     <% pa = 100 %>
                 <% end %>
-                <% if inclass < classlength %>
+                <% if inclass < classlength && (classlength-inclass) > 5 %>
                     <tr class = "late">
                 <% else %>
                     <tr class = "present">

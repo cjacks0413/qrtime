@@ -20,7 +20,7 @@
             <% checkout = sa.last.time.strftime("%I:%M:%S")  %>
             <% classlength = session.end_time - session.start_time %>
             <% inclass = sa.last.time - sa.first.time %>
-            <% pa = (inclass/classlength).round(2) %>
+            <% pa = ((inclass/classlength).round(2))*100 %>
             <% if pa>100 %>
                 <% pa = 100 %>
             <% end %>
