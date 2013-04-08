@@ -18,9 +18,9 @@
         <% else %>
             <% checkin = sa.first.time.strftime("%I:%M:%S") %>
             <% checkout = sa.last.time.strftime("%I:%M:%S")  %>
-            <% classlength = (session.end_time - session.start_time).to_i %>
-            <% inclass = (sa.last.time - sa.first.time).to_i %>
-            <% pa = inclass/classlength %>
+            <% classlength = session.end_time - session.start_time %>
+            <% inclass = sa.last.time - sa.first.time %>
+            <% pa = (inclass/classlength).round(2) %>
             <% if pa>100 %>
                 <% pa = 100 %>
             <% end %>
