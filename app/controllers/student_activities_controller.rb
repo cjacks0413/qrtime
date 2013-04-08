@@ -63,7 +63,7 @@ class StudentActivitiesController < ApplicationController
     @student_activity.user_id = current_user.id
     @student_activity.action = "Check-In"
     @student_activity.date = Date.today
-    @student_activity.time = Time.now.strftime("%I:%M:%S")
+    @student_activity.time = Time.now
 
     @course_session = CourseSession.find(@student_activity.course_session_id)
 
@@ -90,7 +90,7 @@ class StudentActivitiesController < ApplicationController
     @student_activity.user_id = current_user.id
     @student_activity.action = "Check-Out"
     @student_activity.date = Date.today
-    @student_activity.time = Time.now.strftime("%I:%M:%S")
+    @student_activity.time = Time.now
 
     @course_session = CourseSession.find(@student_activity.course_session_id)
 
