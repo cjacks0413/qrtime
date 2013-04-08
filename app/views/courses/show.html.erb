@@ -1,5 +1,8 @@
 <p id="notice"><%= notice %></p>
 
+
+<%= link_to "Download Course Data", {:controller => "courses", :action => "show", :id => @course, :format => "csv"}, {:class => 'databutton'} %>
+
 <p>
   <b>Name:</b>
   <%= @course.name %>
@@ -10,7 +13,6 @@
   <% user_id = @course.instructor%>
   <%= User.find(user_id).name %>
 </p>
-
 
 
 <p>
@@ -24,7 +26,7 @@
 
       </tr>
       <% count = 1 %>
-  <% @course.course_sessions.each do |course_session| %>
+  <% @course_sessions.each do |course_session| %>
 
 
       <tr>
@@ -45,7 +47,7 @@
 
 <p>
   <b>Students Enrolled:</b> <br>
-  <% @course.users.each do |u|%>
+  <% @users.each do |u|%>
      <%= link_to u.name, u %><br>
   <% end %>
 </p>

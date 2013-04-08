@@ -19,11 +19,13 @@ class CoursesController < ApplicationController
   def show
     authorize! :index, @user, :message => 'Not authorized.'
     @course = Course.find(params[:id])
-    @course_sessions = CourseSession.all
+    @course_sessions = @course.course_sessions
+    @users = @course.users
 
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @course }
+      format.csv # show.cvs.erb
     end
   end
 

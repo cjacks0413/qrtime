@@ -1,0 +1,39 @@
+<% title = [@course.name] %>
+<%= CSV.generate_line title, {:row_sep => nil} %>
+<% headers = ["Session", "Date", "Start Time", "End Time", "Student", "Check In", "Check Out", "Percent Attended"] %>
+<%= CSV.generate_line headers, {:row_sep => nil} %>
+<% count = 0 %>
+<% @course_sessions.each do |session| %>
+    <% count = count +1 %>
+    <% @users.each do |user| %>
+        <% sa = user.student_activities.all(:conditions => ["course_session_id = ?", session.id, ]) %>
+        <% if sa.length == 0 %>
+              <% checkin = "n/a" %>
+              <% checkout = "n/a" %>
+              <% pa = 0 %>
+        <% elsif sa.length == 1 %>
+            <% checkin = sa.first.time.strftime("%I:%M:%S") %>
+            <% checkout = "n/a" %>
+            <% pa = "n/a" %>
+        <% else %>
+            <% checkin = sa.first.time.strftime("%I:%M:%S") %>
+            <% checkout = sa.last.time.strftime("%I:%M:%S")  %>
+            <% classlength = (session.end_time - session.start_time).to_i %>
+            <% inclass = (sa.last.time - sa.first.time).to_i %>
+            <% pa = inclass/classlength %>
+            <% if pa>100 %>
+                <% pa = 100 %>
+            <% end %>
+        <% end %>
+        <% row = [ count,
+                    session.date,
+                    session.start_time.strftime("%I:%M:%S"),
+                    session.end_time.strftime("%I:%M:%S"),
+                    user.name,
+                    checkin,
+                    checkout,
+                    pa
+                        ] %>
+        <%=   CSV.generate_line row, {:row_sep => nil} %>
+    <% end %>
+<% end %>

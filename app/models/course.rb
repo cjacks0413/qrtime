@@ -7,4 +7,5 @@ class Course < ActiveRecord::Base
   has_many :course_sessions
   has_many :courses_users
   has_and_belongs_to_many :users
+
 end
