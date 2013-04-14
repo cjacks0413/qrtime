@@ -59,11 +59,12 @@ class StudentActivitiesController < ApplicationController
 
 
   def check_in
+    Time.zone = 'Eastern Time (US & Canada)'
     @student_activity = StudentActivity.new(params[:student_activity])
     @student_activity.user_id = current_user.id
     @student_activity.action = "Check-In"
     @student_activity.date = Date.today
-    @student_activity.time = Time.now
+    @student_activity.time = Time.zone.now
 
     @course_session = CourseSession.find(@student_activity.course_session_id)
 
@@ -86,11 +87,12 @@ class StudentActivitiesController < ApplicationController
 
 
   def check_out
+    Time.zone = 'Eastern Time (US & Canada)'
     @student_activity = StudentActivity.new(params[:student_activity])
     @student_activity.user_id = current_user.id
     @student_activity.action = "Check-Out"
     @student_activity.date = Date.today
-    @student_activity.time = Time.now
+    @student_activity.time = Time.zone.now
 
     @course_session = CourseSession.find(@student_activity.course_session_id)
 
