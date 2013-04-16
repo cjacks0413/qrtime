@@ -1,7 +1,6 @@
 class HomeController < ApplicationController
   before_filter :authenticate_user!
   def index
-    Time.zone = 'Eastern Time (US & Canada)'
     @users = User.all
     @user = current_user
     if current_user.has_role?(:instructor) == true
