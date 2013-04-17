@@ -7,6 +7,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    Time.zone = 'Eastern Time (US & Canada)'
     @user = User.find(params[:id])
     @courses = @user.courses
   end

@@ -17,6 +17,7 @@ class CoursesController < ApplicationController
   # GET /courses/1
   # GET /courses/1.json
   def show
+    Time.zone = 'Eastern Time (US & Canada)'
     authorize! :index, @user, :message => 'Not authorized.'
     @course = Course.find(params[:id])
     @course_sessions = @course.course_sessions

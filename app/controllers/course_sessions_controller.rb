@@ -15,6 +15,7 @@ class CourseSessionsController < ApplicationController
   # GET /course_sessions/1
   # GET /course_sessions/1.json
   def show
+    Time.zone = 'Eastern Time (US & Canada)'
     authorize! :show, @user, :message => 'Not authorized.'
     @course_session = CourseSession.find(params[:id])
     @student_activities = StudentActivity.all(:conditions => {:course_session_id => @course_session.id})

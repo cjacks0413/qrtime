@@ -1,6 +1,7 @@
 class CalendarController < ApplicationController
   
   def index
+    Time.zone = 'Eastern Time (US & Canada)'
     @month = (params[:month] || (Time.zone || Time).now.month).to_i
     @year = (params[:year] || (Time.zone || Time).now.year).to_i
 
