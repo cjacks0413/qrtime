@@ -10,6 +10,11 @@ class UsersController < ApplicationController
     Time.zone = 'Eastern Time (US & Canada)'
     @user = User.find(params[:id])
     @courses = @user.courses
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.csv # show.cvs.erb
+    end
   end
   
   def update

@@ -1,3 +1,5 @@
+<%= link_to "Download User Data", {:controller => "users", :action => "show", :id => @user, :format => "csv"}, {:class => 'databutton'} %>
+
 <p><b> User:</b> <%= @user.name %></p>
 <p><b>Email:</b> <%= @user.email if @user.email %></p>
 <p><b>Role:</b>
