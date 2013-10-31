@@ -34,7 +34,8 @@ GEM
     better_errors (0.5.0)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
-    binding_of_caller (0.6.8)
+    binding_of_caller (0.7.2)
+      debug_inspector (>= 0.0.1)
     builder (3.0.4)
     cancan (1.6.9)
     capybara (2.0.2)
@@ -56,6 +57,7 @@ GEM
     coffee-script-source (1.4.0)
     commonjs (0.2.6)
     database_cleaner (0.9.1)
+    debug_inspector (0.0.2)
     devise (2.2.3)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -196,7 +198,7 @@ PLATFORMS
 
 DEPENDENCIES
   better_errors (>= 0.3.2)
-  binding_of_caller (>= 0.6.8)
+  binding_of_caller (>= 0.7.1)
   cancan (>= 1.6.8)
   capybara (>= 2.0.2)
   coffee-rails (~> 3.2.1)

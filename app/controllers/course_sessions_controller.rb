@@ -3,7 +3,7 @@ class CourseSessionsController < ApplicationController
   # GET /course_sessions
   # GET /course_sessions.json
   def index
-    authorize! :index, @user, :message => 'Not authorized.'
+ #   authorize! :index, @user, :message => 'Not authorized.'
     @course_sessions = CourseSession.all
 
     respond_to do |format|
@@ -16,7 +16,7 @@ class CourseSessionsController < ApplicationController
   # GET /course_sessions/1.json
   def show
     Time.zone = 'Eastern Time (US & Canada)'
-    authorize! :show, @user, :message => 'Not authorized.'
+#    authorize! :show, @user, :message => 'Not authorized.'
     @course_session = CourseSession.find(params[:id])
     @student_activities = StudentActivity.all(:conditions => {:course_session_id => @course_session.id})
     @course = @course_session.course
@@ -31,7 +31,7 @@ class CourseSessionsController < ApplicationController
   # GET /course_sessions/new
   # GET /course_sessions/new.json
   def new
-    authorize! :new, @user, :message => 'Not authorized.'
+ #   authorize! :new, @user, :message => 'Not authorized.'
     @course_session = CourseSession.new
 
     respond_to do |format|
@@ -42,14 +42,14 @@ class CourseSessionsController < ApplicationController
 
   # GET /course_sessions/1/edit
   def edit
-    authorize! :edit, @user, :message => 'Not authorized.'
+#    authorize! :edit, @user, :message => 'Not authorized.'
     @course_session = CourseSession.find(params[:id])
   end
 
   # POST /course_sessions
   # POST /course_sessions.json
   def create
-    authorize! :create, @user, :message => 'Not authorized.'
+ #   authorize! :create, @user, :message => 'Not authorized.'
     @course_session = CourseSession.new(params[:course_session])
 
     respond_to do |format|
@@ -66,7 +66,7 @@ class CourseSessionsController < ApplicationController
   # PUT /course_sessions/1
   # PUT /course_sessions/1.json
   def update
-    authorize! :update, @user, :message => 'Not authorized.'
+ #   authorize! :update, @user, :message => 'Not authorized.'
     @course_session = CourseSession.find(params[:id])
 
     respond_to do |format|
@@ -83,7 +83,7 @@ class CourseSessionsController < ApplicationController
   # DELETE /course_sessions/1
   # DELETE /course_sessions/1.json
   def destroy
-    authorize! :destroy, @user, :message => 'Not authorized.'
+ #   authorize! :destroy, @user, :message => 'Not authorized.'
     @course_session = CourseSession.find(params[:id])
     @course_session.destroy
 
@@ -101,10 +101,10 @@ class CourseSessionsController < ApplicationController
     @student_activity = StudentActivity.new
     @student_activity.course_session_id = @course_session.id
 
-
+	
     respond_to do |format|
       format.html
-      format.png  { render :qrcode => course_session_check_in_url(@course_session) }
+      format.svg  { render :qrcode => course_session_check_in_url(@course_session)}
     end
   end
 
@@ -117,7 +117,7 @@ class CourseSessionsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.png  { render :qrcode => course_session_check_out_url(@course_session) }
+      format.svg  { render :qrcode => course_session_check_out_url(@course_session) }
     end
   end
 

@@ -36,7 +36,7 @@ Qrtime::Application.routes.draw do
   end
 
 
-  devise_for :users
+  devise_for :users   
   resources :users do
     member do
       get :courses

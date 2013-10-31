@@ -3,7 +3,7 @@ class CoursesController < ApplicationController
   # GET /courses
   # GET /courses.json
   def index
-    authorize! :index, @user, :message => 'Not authorized.'
+  #  authorize! :index, @user, :message => 'Not authorized.'
     @courses = Course.all
     @course_sessions = CourseSession.all
     @caldate = params[:month] ? Date.parse(params[:month]) : Date.today
@@ -18,7 +18,7 @@ class CoursesController < ApplicationController
   # GET /courses/1.json
   def show
     Time.zone = 'Eastern Time (US & Canada)'
-    authorize! :index, @user, :message => 'Not authorized.'
+   # authorize! :index, @user, :message => 'Not authorized.'
     @course = Course.find(params[:id])
     @course_sessions = @course.course_sessions
     @users = @course.users
@@ -33,7 +33,7 @@ class CoursesController < ApplicationController
   # GET /courses/new
   # GET /courses/new.json
   def new
-    authorize! :new, @user, :message => 'Not authorized.'
+    #authorize! :new, @user, :message => 'Not authorized.'
     @course = Course.new
 
 
@@ -45,14 +45,14 @@ class CoursesController < ApplicationController
 
   # GET /courses/1/edit
   def edit
-    authorize! :edit, @user, :message => 'Not authorized.'
+    #authorize! :edit, @user, :message => 'Not authorized.'
     @course = Course.find(params[:id])
   end
 
   # POST /courses
   # POST /courses.json
   def create
-    authorize! :create, @user, :message => 'Not authorized.'
+    #authorize! :create, @user, :message => 'Not authorized.'
     @course = Course.new(params[:course])
 
     respond_to do |format|
@@ -69,7 +69,7 @@ class CoursesController < ApplicationController
   # PUT /courses/1
   # PUT /courses/1.json
   def update
-    authorize! :update, @user, :message => 'Not authorized.'
+    #authorize! :update, @user, :message => 'Not authorized.'
     @course = Course.find(params[:id])
 
     respond_to do |format|
@@ -86,7 +86,7 @@ class CoursesController < ApplicationController
   # DELETE /courses/1
   # DELETE /courses/1.json
   def destroy
-    authorize! :destroy, @user, :message => 'Not authorized.'
+   #authorize! :destroy, @user, :message => 'Not authorized.'
     @course = Course.find(params[:id])
     @course.destroy
 

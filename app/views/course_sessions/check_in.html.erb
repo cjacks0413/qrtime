@@ -22,13 +22,13 @@
 
 <% elsif current_user.has_role?(:instructor) == true %> <br><br>
     You are an instructor. Here is the QR code for students to check in to <%= @course_session.course.name %> . <br><br>
-    <%=  image_tag( course_session_check_in_url(@course_session, :format => :png)) %>
+    <%=  image_tag( course_session_check_in_url(@course_session, :format => :svg)) %>
        <br><br>
     <%= link_to 'Home', root_path %>
 
 <% elsif current_user.has_role?(:admin) == true %>   <br><br>
      You are an admin. Here is the QR code for students to check in to <%= @course_session.course.name %> . <br><br>
-    <%=  image_tag( course_session_check_in_url(@course_session, :format => :png)) %>.
+    <%=  image_tag( course_session_check_in_url(@course_session, :format => :svg)) %>.
        <br><br>
     <%= link_to 'Home', root_path %>
 <% end %>
