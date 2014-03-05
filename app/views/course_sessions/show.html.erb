@@ -34,17 +34,8 @@
   <b>Check Out URL:</b>
   <%= @course_session.check_out_url %>
 </p>
-
-
-<table cellpadding=40>
-  <tr><th>Check in QR:</th><th>Check Out QR:</th></tr>
-  <tr>
-      <td><%= link_to (image_tag(course_session_check_in_url(@course_session, :format => :svg))),
-                      course_session_check_in_url(@course_session)%></td>
-  </tr>
-</table>
-
-<a href="#" id="show_whatever">Show Student Activity</a>
+<p><%= link_to (image_tag(course_session_check_in_url(@course_session, :format => :svg))),
+                      course_session_check_in_url(@course_session)%></p> 
 <div id="whatever" style="display:none">
   <table border="1">
     <tr>
