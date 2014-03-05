@@ -10,7 +10,7 @@ class Course < ActiveRecord::Base
 
 
   def valid_sessions
-  	course.course_session.where("date < ?", Time.now.beginning_of_day)
+  	self.course_sessions.where("date < ?", Time.now.beginning_of_day)
   end 
 
 end

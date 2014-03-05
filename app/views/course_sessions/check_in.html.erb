@@ -7,7 +7,7 @@
       <% if current_user.student_activities.all(:conditions => {:course_session_id => @course_session.id, :action => "Check-In"}).length > 0 %>
               You have already checked in to this course session.
                 <% if  @course_session.check_in_url != "" %>
-                  <%= link_to 'Continue to Course Materials', @course_session.check_in_url %>
+                  <%= link_to 'Continue to Qualtrics', @course_session.check_in_url %>
                 <% else %>
                 <br><br><%= link_to 'Home', root_path %>
                 <% end %>

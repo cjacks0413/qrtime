@@ -9,13 +9,11 @@
             <th>Date</th>
             <th>Start Time</th>
             <th>Check-In</th>
-            <th>Check-Out</th>
 
           </tr>
 
           <% @courses.each do |c| %>
-              <!--<% cs = c.course_sessions.all(:conditions => ["date < ?", Time.now.beginning_of_day]) %>-->
-                <% cs = c.valid_sessions 
+                <% cs = c.valid_sessions %>
                 <% cs.each do |s| %>
                 <% sa = s.student_activities.all(:conditions => ["user_id = ?", @user.id]) %>
                 <% if sa.length == 0 %>
@@ -38,10 +36,7 @@
                     <% if sa.length > 0 %>
                         <td><%= sa.first.time.strftime("%I:%M:%S") %></td>
                     <% end %>
-                    <% if sa.length > 1 %>
-                        <td><%= sa.last.time.strftime("%I:%M:%S") %></td>
-                    <% end %>
-                    <% if sa.length == 0 && 1 == 0%>
+                    <% if sa.length == 0 && 1 == 0 %>
                       <td></td>
                       <td></td>
                       <%= simple_form_for(@student_activity) do |f| %>
