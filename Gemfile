@@ -7,7 +7,7 @@ end
 
 group :production do
   gem 'pg'
-  #gem "mysql2" 
+  gem "mysql2" 
   gem 'railties', '~> 3.2.12'
 end
 
