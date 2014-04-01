@@ -9,7 +9,6 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :role_ids
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :course_id 
-
   has_many :student_activities
   has_many :courses_users
   has_and_belongs_to_many :courses
