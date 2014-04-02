@@ -41,3 +41,4 @@ gem "watu_table_builder", :require => "table_builder"
 
 gem 'rqrcode-rails3'
 gem 'mini_magick'
+gem 'unicorn'
