@@ -23,6 +23,8 @@ class CoursesController < ApplicationController
     @course_sessions = @course.course_sessions
     @users = @course.users
 
+    @all_users = User.with_role :student
+    
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @course }

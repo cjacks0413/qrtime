@@ -51,8 +51,15 @@
   <% end %>
 </p>
 
-
-
+<p>Enroll Students</p>
+  <% @all_users.each do |u| %> 
+    <%= form_tag(course_add_user_path(u)) do %>
+                <%= select_tag(:course,
+                               options_from_collection_for_select(u.unenrolled_courses,
+                                                                  :id, :name)) %>
+                <%= submit_tag 'Enroll' %>
+    <% end %>
+  <% end %> 
 <br>
 <br>
 

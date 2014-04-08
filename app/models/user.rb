@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
   has_many :courses_users
   has_and_belongs_to_many :courses
   belongs_to :role
+  accepts_nested_attributes_for :role
 
   after_create :default_role
 
