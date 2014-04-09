@@ -97,9 +97,11 @@ class CoursesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  
 end
 
-# GET /courses/1/roll
-def roll
-  @course = Course.find(params[:id])
-end
+# # GET /courses/1/roll
+# def roll
+#   @course = Course.find(params[:id])
+# end

@@ -25,6 +25,10 @@ class User < ActiveRecord::Base
     self.courses.include?(course)
   end
 
+  def students
+    User.with_role :student
+  end 
+  
   private
    def default_role
     self.add_role :student
