@@ -30,7 +30,7 @@
                       <% end %>
                 <% end %>
 
-                    <td><%= s.course.name %></td>
+                    <td><%= link_to s.course.name, survey %></td>
                     <td><%= s.date %></td>
                     <td><%= s.start_time.strftime("%I:%M:%S") %></td>
                     <% if sa.length > 0 %>
@@ -52,8 +52,7 @@
 
               <% end %>
           <% end %>
-        </table>
-
+        </table> 
     <% end %>
 
     <% if current_user.has_role?(:instructor) == true  %>

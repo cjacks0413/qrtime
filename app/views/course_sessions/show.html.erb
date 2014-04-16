@@ -25,17 +25,8 @@
   <%= @course_session.end_time.strftime("%I:%M:%S")  %>
 </p>
 
-<p>
-  <b>Check In URL:</b>
-  <%= @course_session.check_in_url %>
-</p>
-
-<p>
-  <b>Check Out URL:</b>
-  <%= @course_session.check_out_url %>
-</p>
-<p><%= link_to (image_tag(course_session_check_in_url(@course_session, :format => :svg))),
-                      course_session_check_in_url(@course_session)%></p> 
+<div id="qr"><%= link_to (image_tag(course_session_check_in_url(@course_session, :format => :svg))),
+                      course_session_check_in_url(@course_session)%></div> 
 <div id="whatever" style="display:none">
   <table border="1">
     <tr>

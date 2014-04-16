@@ -12,4 +12,7 @@ module ApplicationHelper
     html.html_safe
   end
 
+  def survey
+    survey = "https://docs.google.com/forms/d/1GmR3t7xz8ce4gdUIQpFgDwKMWuW8ZmHkASq6xXh_ID8/viewform" 
+  end 
 end
