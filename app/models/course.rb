@@ -1,4 +1,5 @@
 class Course < ActiveRecord::Base
+  after_initialize :set_defaults
   resourcify
   attr_accessible :name, :instructor
 
@@ -12,5 +13,11 @@ class Course < ActiveRecord::Base
   def valid_sessions
   	self.course_sessions.where("date < ?", Time.now.beginning_of_day)
   end 
+
+  private
+  
+    def set_defaults 
+      self.check_in_url = "https://docs.google.com/forms/d/1GmR3t7xz8ce4gdUIQpFgDwKMWuW8ZmHkASq6xXh_ID8/viewform"
+    end  
 
 end

@@ -6,7 +6,7 @@
 
       <% if current_user.student_activities.all(:conditions => {:course_session_id => @course_session.id, :action => "Check-In"}).length > 0 %>
               You have already checked in to this course session.
-                  <%= link_to 'Continue to Survey', @course_session.check_in_url %>
+                  <%= link_to 'Continue to Survey', @course_session.set_checkin %>
       <% else %>
              <%= form_for @student_activity, :url => {:controller => :student_activities, :action => "check_in"} do |f|  %>
             <%=  f.hidden_field :course_session_id %>
