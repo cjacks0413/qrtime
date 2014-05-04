@@ -4,6 +4,7 @@
   <div class="form-inputs">
     <%= f.input :name %>
     <%=  f.input :instructor %>
+    <%= f.input :check_in_url, :label => "Edit Default Survey" %> 
     <%= f.association :users, label: "Add Students", collection: (User.with_role :student), as: :check_boxes %> 
   </div>
 

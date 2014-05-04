@@ -30,7 +30,7 @@
                       <% end %>
                 <% end %>
 
-                    <td><%= link_to s.course.name, survey %></td>
+                    <td><%= link_to s.course.name, c.check_in_url %></td>
                     <td><%= s.date %></td>
                     <td><%= s.start_time.strftime("%I:%M:%S") %></td>
                     <% if sa.length > 0 %>
